@@ -1,0 +1,20 @@
+{
+    "CERTS": {
+      "domain": "ams-web-ams6-dev.westeurope.cloudapp.azure.com",
+      "OutputPath": "C:\\Installs\\AMS_Files\\Certs_latestv2",
+      "Password": "P@55w0rd",
+      "BackupPath": "C:\\Installs\\AMS_Files\\cert_backups",
+      "PathToExe": "C:\\Installs\\renew_certs\\win-acme.v2.2.5.1541.x64.pluggable",
+      "ExeName": "wacs.exe"
+    },
+    "AMS": {
+      "PathToRestAPI": "C:\\Program Files\\WorkBridge\\AMS_TLS_6.7.2\\AMS REST API 1",
+      "PathToSoapAPI": "C:\\Program Files\\WorkBridge\\AMS_TLS_6.7.2\\AMS Web API Server 1",
+      "RestAPIServiceName": "WorkBridge AMS_TLS_6.7.2 AMS REST API 1",
+      "SoapAPIServiceName": "WorkBridge AMS_TLS_6.7.2 AMS Web API Server 1",
+      "AMSFlightProcessingServiceName": "WorkBridge AMS_TLS_6.7.2 Seasonal Flight Processing Service",
+      "AMSServerServiceName": "WorkBridge AMS_TLS_6.7.2 AMS Server 1",
+      "AMSDWServiceName": "WorkBridge AMS_TLS_6.7.2 AMS Data Warehouse Server 1",
+      "RabbitMQServiceName": "RabbitMQ"
+    }
+}
