@@ -1,6 +1,6 @@
 # AMS 6.7 SSL Certs with Lets Encrypt
 
-Please not that this is suitable only for dev/test and Sectigo should be used for production 
+Please note that this is suitable only for dev/test and Sectigo should be used for production 
 
 # Setup prerequisites
 
@@ -9,11 +9,7 @@ Please not that this is suitable only for dev/test and Sectigo should be used fo
  3. Download win-acme.v2.2.5.1541.x64.pluggable from [Github](https://github.com/win-acme/win-acme/releases/download/v2.2.5.1541/win-acme.v2.2.5.1541.x64.
  pluggable.zip)
  4. Extract `win-acme.v2.2.5.1541.x64.pluggable.zip` to `C:\Installs\AMS_Files\renew_certs`
-
-
-# Update RabbitMQ Advanced Config
-
- - Replace `C:\Users\amsweb-admin\AppData\Roaming\RabbitMQ\advanced.config` with the contents of 
+ 5. Update RabbitMQ Advanced Config. Replace `C:\Users\amsweb-admin\AppData\Roaming\RabbitMQ\advanced.config` with the contents of 
 
 ```json
 [
@@ -27,15 +23,10 @@ Please not that this is suitable only for dev/test and Sectigo should be used fo
 ]}
 ].
 ```
-
-# Certification Renewal
-
-Instructions:   
-    - Please prepare a config.json    
-    - Put it in the same folder as this powershell script.  
-    - /Users/eamonfoy/Documents/dev/ams-ops-sandbox/renew_certs.ps1.  
-    - See sample config.json below:   
-
+6. Note the same `Secure Password` is used by both Rabbit and renew_cers.ps1. It must be the same password in both.
+7. Next create a config.json which will be used by the renew_certs.ps1 to renew the LetsEncrypt Certs
+8. Put the config.json it in the same folder as this powershell script `renew_certs.ps1`.  
+9. See sample config.json below:   
 ```json
 {
         "CERTS": {
@@ -61,8 +52,43 @@ Instructions:
 
 ## Running renew_certs.ps1
 
-Run the following command
+Run the following command to renew the Lets encrypt certificates. Note it defaults to reading in config.json in the same directory as the powerschell script 
 ```powershell
-.\renew_certs.ps1
+.\renew_certs.ps1 
+```
+
+Use -ConfigFile paremeter If you want to use a different file name    
+```powershell
+.\renew_certs.ps1 -ConfigFile config-ams-web-ams7-operations-sandbox.json
+```
+
+Once the script is run does the following:
+1. Backs up the old certificates in to a zip file and stores in the BackupPath defined in the confg.json
+2. Generates a Pem Certificate set of files used by RabbitMQ and stores in the OutputPath defined in the confg.json
+3. Generates a PFX Certificate used by AMS and stores in the OutputPath defined in the confg.json
+4. Copies the PFX files to the RestAPPathToRestAPI defined in the config.json
+5. Copies the PFX files to the PathToSoapAPI defined in the config.json
+           
+6. Restarts RabbitMQ service defined as `RabbitMQServiceName` in config.json 
+6. Restarts AMS components defined as `AMSFlightProcessingServiceName, RestAPIServiceName, SoapAPIServiceName, AMSServerServiceName, AMSFlightProcessingServiceName` in config.json 
+
+### Generated Certificates
+
+The folowing is a list of the certificates Generated:
+```
+PS C:\Installs\AMS_Files\Certs_latest> ls
+
+
+    Directory: C:\Installs\AMS_Files\Certs_latest
+
+
+Mode                LastWriteTime         Length Name
+----                -------------         ------ ----
+-a----       31/07/2023     21:51           7022 cert.pfx
+-a----       31/07/2023     21:44           3810 rabbitmq-chain-only.pem
+-a----       31/07/2023     21:44           5908 rabbitmq-chain.pem
+-a----       31/07/2023     21:44           2098 rabbitmq-crt.pem
+-a----       31/07/2023     21:44           2588 rabbitmq-key.pem
+
 ```
 
