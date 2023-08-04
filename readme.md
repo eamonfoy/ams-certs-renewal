@@ -11,7 +11,7 @@ Please note that this is suitable only for dev/test and Sectigo should be used f
  4. Extract `win-acme.v2.2.5.1541.x64.pluggable.zip` to `C:\Installs\AMS_Files\renew_certs`
  5. Update RabbitMQ Advanced Config. Replace `C:\Users\amsweb-admin\AppData\Roaming\RabbitMQ\advanced.config` with the contents of 
 
-```json
+```
 [
 {rabbit, [
      {tcp_listeners, []},
