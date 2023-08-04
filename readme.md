@@ -62,7 +62,7 @@ Use -ConfigFile paremeter If you want to use a different file name
 .\renew_certs.ps1 -ConfigFile config-ams-web-ams7-operations-sandbox.json
 ```
 
-Once the script is run does the following:
+The powershell script performs the following tasks:
 1. Backs up the old certificates in to a zip file and stores in the BackupPath defined in the confg.json
 2. Generates a Pem Certificate set of files used by RabbitMQ and stores in the OutputPath defined in the confg.json
 3. Generates a PFX Certificate used by AMS and stores in the OutputPath defined in the confg.json
